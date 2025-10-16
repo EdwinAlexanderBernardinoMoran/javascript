@@ -1,3 +1,13 @@
+# Seccion 1 - Javascript y su historia.
+
+- Velocidad maxima de los modems en los anos 90 era de 28Kbps, abrio la oportunidad crear formularios entre otras cosas mas complejas.
+- Surgio a raiz de que no habia forma de validar datos sin antes mandarlos al servidor, era la unica forma.
+- Su creador fue Brendan Eich empleado de NextCape, su primera version se llamo LiveScript por marquetin se llamo JavaScript.
+
+- En 1997 se estandarizo el lenguaje enviaron la especificacion a ECMA(European Computer Manufacturers Association)
+- ECMA creo un comite para estandarizar el lenguaje de script multiplataforma sin importar la empresa que lo usara llamado TC39 el cual creo el primer estandar llamado ECMA 262
+- Javascript no es mas que la implementacion que realizo la empresa Netscape del estandar ECMAScript.
+
 # ¿Dónde se utiliza JavaScript?
 
 JavaScript se utiliza principalmente en los siguientes lugares:
@@ -52,3 +62,6 @@ console.log(x)
 - **Symbol**: Identificadores únicos (usados en casos avanzados).
 - **BigInt**: Números enteros muy grandes.
 
+### Palabras reservadas y nombres de variables.
+
+- Es mala practica nombrar los nombres de los archivos con camelcase o espacio entre palabras (02-reserved-words.js)
