@@ -65,7 +65,9 @@ console.log(x);
 
 ### Palabras reservadas y nombres de variables.
 
-- Es mala practica nombrar los nombres de los archivos con camelcase o espacio entre palabras (02-reserved-words.js)
+- Es mala practica nombrar los nombres de los archivos con camelcase o espacio entre palabras (02-reserved-words-and-variable-names)
+- Las variables se escriben con `lowerCamelCase`(primera letra de la primera palabra es minúscula, y la primera letra de todas las palabras subsiguientes va en mayúscula)
+- Las clases se escriben con `upperCamelCase`(primera letra de la primera palabra es minúscula, y la primera letra de todas las palabras subsiguientes va en mayúscula)
 
 ### Objetos literales
 
