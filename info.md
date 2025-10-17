@@ -33,14 +33,15 @@ JavaScript es un lenguaje muy versátil y ampliamente adoptado en la industria t
 Es un codigo que provee el funcionamiento de una nueva característica de JavaScript (ES6), en versiones viejas como ES5.
 
 **Forma de definir variables**
+
 ```js
 let a = 10,
-    b = 20,
-    c = 10,
-    d = 10,
-    x = a + b
+  b = 20,
+  c = 10,
+  d = 10,
+  x = a + b;
 
-console.log(x)
+console.log(x);
 ```
 
 # S3 - Fundamentos, primitivos, arreglos, objetos y funciones basicas.
@@ -49,7 +50,7 @@ console.log(x)
 
 - JavaScript es debilmente tipado, es decir el infiere el tipo de dato
 
-**Tipo de dato de una variable**: Describe el contenido del valor  que tiene la variable.
+**Tipo de dato de una variable**: Describe el contenido del valor que tiene la variable.
 **Primitivos**: ELos tipos de datos primitivos en JavaScript son los valores más básicos y fundamentales que no es un objeto y son inmutables.
 
 **Tipos de datos primitivos en JavaScript:**
@@ -65,3 +66,67 @@ console.log(x)
 ### Palabras reservadas y nombres de variables.
 
 - Es mala practica nombrar los nombres de los archivos con camelcase o espacio entre palabras (02-reserved-words.js)
+
+### Objetos literales
+
+Los objetos literales en JavaScript son una forma sencilla y directa de crear objetos utilizando una sintaxis de llaves {}. Permiten agrupar datos y funcionalidades (propiedades y métodos) bajo un mismo nombre.
+
+**Propiedades**: `nombre` y `edad` almacenan datos.
+**metodos**: `saludar` es una función asociada al objeto.
+
+Si asignas un objeto a una constante (`const`), puedes modificar sus propiedades o agregar nuevas, pero no puedes reasignar la constante a un objeto diferente. Es decir, la referencia al objeto permanece igual, aunque su contenido pueda cambiar.
+
+- Formas de acceder a un objeto.
+
+```js
+const person = {
+  name: "Tony Stark",
+  codeName: "Ironman",
+  live: true,
+  age: 45,
+  coords: {
+    lat: 34.034,
+    lng: -118.7,
+  },
+  suits: ["Mark I", "Mark V", "Hulkbuster"],
+  address: {
+    zip: "10880, 90265",
+    location: "Malibu, California",
+  },
+  "last-movie": "Infinity War",
+};
+
+person.name;
+person["name"];
+
+// Forma de acceder a una propiedad poco comun dentro del obj
+person["last-movie"];
+
+// Accediento a un objeto dentro de un objeto
+person.coords.lat;
+
+// Contando el numero de elementos dentro del arreglo
+person.suits.lenth;
+
+// Obteniendo el ultimo elemento del arreglo
+person.suits[person.suits.length - 1];
+
+// Eliminando una propiedad del obj
+delete persona.age;
+
+// Conversion de obj a arreglo. ()
+const entriesPares = Object.entries(person);
+
+// Congela el objeto y bloquea la asignacion de nuevas propiedades y actualizacion de ellas, pero no bloquea a los obj que estan dentro del obj
+Object.freeze(person);
+
+// Lista todas las propiedades que tiene el obj
+const propertiesObjects = Object.getOwnPropertyNames(person);
+
+// Obtiene el valor de las propiedades del obj
+const valuesProperties = Object.values(person);
+```
+
+Este recurso proporciona información adicional sobre las propiedades y métodos de los objetos en JavaScript. Consulta la documentación oficial para explorar más métodos y características disponibles:
+
+[Más información sobre objetos en JavaScript](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Object)
