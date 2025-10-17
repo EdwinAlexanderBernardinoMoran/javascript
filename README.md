@@ -184,3 +184,82 @@ resultado = sumar(2, 3)  // resultado ahora vale 5
 **Importante**
 
 Si una función no tiene una instrucción `return`, en muchos lenguajes retorna un valor especial como None (Python) o undefined (JavaScript).
+
+### Pro tip: Funciones, argumentos y desestructuracion de objetos
+
+**Arrow function**: Arrow function, los parentesis indicann que retornamos todo lo que esta dentro de los parentesis como un objeto.
+
+```js
+const createPersonArrow = (lastName, age) => ({ lastName, age });
+```
+
+**Objeto arguments**: Las funciones de flecha no manejan o no crear este obj de `arguments` es algo que solo tienen los obj tradicionales.
+
+```js
+// Funcion tradicional
+function printArguments() {
+  console.log(arguments);
+}
+
+// Funcion de flecha
+const printArgumentsArrow = () => {
+  console.log(arguments);
+};
+```
+
+- En caso de querer incorporar el objeto `arguments` en una funcion de flecha es de la siguiente manera.
+
+```js
+const printArgumentsArroTwo = (...args) => {
+  console.log(args);
+};
+```
+
+- Despues de la edad todos lo argumentos se guardan en args como un arreglo. Despues del parametro `...args` no puede haber mas parametros.
+
+```js
+const printArgumentsArroThree = (age, ...args) => {
+  // ...args = Se conoce como parametro rest, el cual le dice que todos los argumentos que sean enviados despues de age, se creara un arreglo con todos ellos.
+  console.log({ age, args });
+  return args;
+};
+```
+
+**Desestructuración de arreglos**: Permite extraer valores individuales de un arreglo y asignarlos a variables de manera sencilla y legible.
+
+En el ejemplo, la función `printArgumentsArroThree` retorna un arreglo, y mediante la desestructuración se asignan sus elementos a variables individuales:
+
+```js
+const [married, live, namePerson, greet] = printArgumentsArroThree(
+  10,
+  true,
+  "Edwin",
+  "Hola"
+);
+```
+
+Así, cada variable (`married`, `live`, `namePerson`, `greet`) recibe el valor correspondiente del arreglo retornado por la función.
+
+**Destructuracion de argumentos**:
+
+Es una técnica de JavaScript que permite extraer valores de un objeto o arreglo directamente en los parámetros de una función. Así, puedes acceder a propiedades específicas sin tener que referenciar el objeto completo dentro de la función.
+
+```js
+const person = {
+  name: "Tony Stark",
+  codeName: "Ironman",
+  live: true,
+  age: 45,
+  suits: ["Mark I", "Mark V", "Hulkbuster"],
+};
+
+const printProperties = ({ name, codeName, live, age = 0, suits }) => {
+  console.log({ name });
+  console.log({ codeName });
+  console.log({ live });
+  console.log({ age });
+  console.log({ suits });
+};
+
+printProperties(person);
+```
