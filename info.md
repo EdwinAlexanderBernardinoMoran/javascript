@@ -132,3 +132,55 @@ const valuesProperties = Object.values(person);
 Este recurso proporciona información adicional sobre las propiedades y métodos de los objetos en JavaScript. Consulta la documentación oficial para explorar más métodos y características disponibles:
 
 [Más información sobre objetos en JavaScript](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+### Funciones basicas y de flecha
+
+- Las funciones básicas (o funciones tradicionales) en JavaScript son aquellas que se definen usando la palabra clave
+
+```js
+function greet(name) {
+  console.log(arguments);
+
+  console.log(`Hola ${name}`);
+}
+```
+
+- Las funciones de flecha (arrow functions) son una forma más concisa de escribir funciones introducida en ES6. Usan la sintaxis () => {}. Ejemplo:
+
+```js
+const greetTwo = (name) => {
+  console.log(`Hola ${name}`);
+};
+
+const greetThree = () => {
+  console.log("Hello world");
+};
+
+const sumarTwo = (a, b) => a + b;
+
+const getAleatorioTwo = () => Math.random();
+```
+
+**Diferencias clave**
+
+- Las funciones de flecha no tienen su propio this, lo heredan del contexto donde se crean.
+- Las funciones tradicionales sí tienen su propio this.
+- Las funciones de flecha suelen ser más cortas y legibles para funciones simples.
+
+### Retorno de las funciones
+
+El retorno de una función es el valor que una función "devuelve" después de ejecutarse. Cuando llamas a una función, puedes obtener un resultado usando la palabra clave `return` en la mayoría de los lenguajes de programación.
+
+```js
+def sumar(a, b):
+    return a + b
+
+resultado = sumar(2, 3)  // resultado ahora vale 5
+```
+
+- La función sumar retorna el resultado de a + b.
+- El valor retornado puede ser usado en otras partes del código.
+
+**Importante**
+
+Si una función no tiene una instrucción `return`, en muchos lenguajes retorna un valor especial como None (Python) o undefined (JavaScript).
