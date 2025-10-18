@@ -263,3 +263,43 @@ const printProperties = ({ name, codeName, live, age = 0, suits }) => {
 
 printProperties(person);
 ```
+
+# S4 - Ciclos y estructuras de control
+
+### Valor, referencia y romper la referencia
+
+- Todos los valores primitivos (number, string, boolean, null, undefined, symbol, bigint) se pasan por valor.
+
+- Los objetos (arrays, funciones, objetos literales, etc.) se pasan por referencia.
+
+- Rompiendo la referencia con el operador `spread` o `slice`.
+
+```js
+// Objetos
+let peter = { name: "Peter" };
+let mary = { ...peter }; // Spread operator
+
+mary.name = "Mary";
+
+console.log({ peter, mary });
+
+const updateName = ({ ...person }) => {
+  person.name = "Peter Parker";
+  return person;
+};
+
+let peterParker = { name: "Spiderman" };
+let spiderman = updateName(peterParker);
+
+console.log({ peterParker, spiderman });
+
+// Arreglos
+const fruits = ["Apple", "Banana", "Orange"];
+const fruits2 = fruits; // Referencia
+const fruits3 = [...fruits]; // Copia
+const fruits4 = fruits.slice(); // Copia
+
+fruits2.push("Mango");
+
+console.table({ fruits, fruits2, fruits3, fruits4 });
+```
