@@ -33,6 +33,8 @@ console.log(true || false);
 console.log( returnTrue() || returnFalse());
 console.log( returnFalse() || returnTrue());
 
+/**************************************************************************** */
+
 console.warn('Asignaciones');
 
 const soyUndefined = undefined;
