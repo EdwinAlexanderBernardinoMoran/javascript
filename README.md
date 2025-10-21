@@ -309,3 +309,10 @@ console.table({ fruits, fruits2, fruits3, fruits4 });
 - `=` es el operador de asignación. Se usa para asignar un valor a una variable.
 - `==` es el operador de comparación de igualdad "débil". Compara dos valores después de convertirlos (si es necesario) al mismo tipo.
 - `===` es el operador de comparación de igualdad "estricta". Compara tanto el valor como el tipo de los operandos.
+
+### Logica boleana
+
+**Operador And (&&)**: Devuelve un `True` si todos los valores son verdaderos, en caso la primera devuelva falso ya no se ejecuta el siguiente valor.
+**Operador Or (||)**: Devuelve un `True` si almenos uno de los valores son verdaderos, en caso el primero sea verdadero ya no se ejecuta el siguiente valor.
+
+###
