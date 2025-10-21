@@ -315,4 +315,12 @@ console.table({ fruits, fruits2, fruits3, fruits4 });
 **Operador And (&&)**: Devuelve un `True` si todos los valores son verdaderos, en caso la primera devuelva falso ya no se ejecuta el siguiente valor.
 **Operador Or (||)**: Devuelve un `True` si almenos uno de los valores son verdaderos, en caso el primero sea verdadero ya no se ejecuta el siguiente valor.
 
-###
+### Operador ternario
+
+- El operador ternario en JavaScript es una forma concisa de escribir una expresión condicional (if-else). Su sintaxis es:
+
+```js
+const edad = 18;
+const mensaje = edad >= 18 ? "Eres mayor de edad" : "Eres menor de edad";
+console.log(mensaje); // Imprime: Eres mayor de edad
+```
