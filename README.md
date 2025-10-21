@@ -324,3 +324,22 @@ const edad = 18;
 const mensaje = edad >= 18 ? "Eres mayor de edad" : "Eres menor de edad";
 console.log(mensaje); // Imprime: Eres mayor de edad
 ```
+
+### While y Do While
+
+- El ciclo while y el do while en JavaScript son estructuras de control que repiten un bloque de código mientras una condición sea verdadera.
+  **While**: Evalúa la condición antes de ejecutar el bloque de código. Si la condición es falsa desde el principio, el bloque no se ejecuta ni una sola vez.
+
+  ```js
+  while (condición) {
+    // Código a ejecutar mientras la condición sea verdadera
+  }
+  ```
+
+  **Do While**: Ejecuta el bloque de código al menos una vez, y luego evalúa la condición. Si la condición sigue siendo verdadera, repite el ciclo.
+
+  ```js
+  do {
+    // Código a ejecutar
+  } while (condición);
+  ```
