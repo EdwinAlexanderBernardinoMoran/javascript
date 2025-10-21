@@ -303,3 +303,9 @@ fruits2.push("Mango");
 
 console.table({ fruits, fruits2, fruits3, fruits4 });
 ```
+
+### if y else
+
+- `=` es el operador de asignación. Se usa para asignar un valor a una variable.
+- `==` es el operador de comparación de igualdad "débil". Compara dos valores después de convertirlos (si es necesario) al mismo tipo.
+- `===` es el operador de comparación de igualdad "estricta". Compara tanto el valor como el tipo de los operandos.
