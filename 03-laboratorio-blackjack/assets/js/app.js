@@ -9,6 +9,7 @@ let deck = [];
 const types = ['C', 'D', 'H', 'S'];
 const specials = ['A', 'J', 'Q', 'K'];
 
+/* Esta función crea un nuevo deck */
 const createDeck = () => {
     for (let i = 2; i <= 10; i++){
         for (let type of types) {
@@ -22,7 +23,6 @@ const createDeck = () => {
         }
     }
 
-    console.log(deck);
     deck = _.shuffle(deck);
     console.log(deck);
 
@@ -31,3 +31,19 @@ const createDeck = () => {
 }
 
 createDeck();
+
+const orderLetter = ( ) => {
+    
+    if( deck.length === 0 ) {
+        throw 'No cards left in the deck';
+    }
+
+    const card = deck.pop();
+
+    console.log(deck);
+    console.log(card);
+        
+    return card;
+}
+
+orderLetter();
