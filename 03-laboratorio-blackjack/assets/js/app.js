@@ -46,4 +46,11 @@ const orderLetter = ( ) => {
     return card;
 }
 
-orderLetter();
+const valueCard = ( card ) => {
+    const value = card.substring(0, card.length -1);
+
+    return isNaN( value) ? ( value === 'A' ) ? 11 : 10 : Number( value );
+}
+
+const value = valueCard(orderLetter());
+console.log(value);
