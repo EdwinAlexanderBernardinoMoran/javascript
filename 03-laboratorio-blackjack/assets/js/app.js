@@ -9,6 +9,19 @@ let deck = [];
 const types = ['C', 'D', 'H', 'S'];
 const specials = ['A', 'J', 'Q', 'K'];
 
+let playerPoints = 0;
+let computerPoints = 0;
+
+// Referencia html
+const btnNewGame = document.querySelector('#btn-new-game');
+const btnAskLetter = document.querySelector('#btn-ask-letter');
+const btnStop = document.querySelector('#btn-stop');
+
+const poinstSmall = document.querySelectorAll('small')
+
+console.log(btnAskLetter);
+
+
 /* Esta función crea un nuevo deck */
 const createDeck = () => {
     for (let i = 2; i <= 10; i++){
@@ -24,10 +37,7 @@ const createDeck = () => {
     }
 
     deck = _.shuffle(deck);
-    console.log(deck);
-
     return deck;
-    
 }
 
 createDeck();
@@ -39,10 +49,6 @@ const orderLetter = ( ) => {
     }
 
     const card = deck.pop();
-
-    console.log(deck);
-    console.log(card);
-        
     return card;
 }
 
@@ -52,5 +58,10 @@ const valueCard = ( card ) => {
     return isNaN( value) ? ( value === 'A' ) ? 11 : 10 : Number( value );
 }
 
-const value = valueCard(orderLetter());
-console.log(value);
+// Events
+btnAskLetter.addEventListener('click', () => {
+    const card = orderLetter();
+
+    playerPoints = playerPoints + valueCard( card );
+    poinstSmall[0].innerText = playerPoints;
+})
