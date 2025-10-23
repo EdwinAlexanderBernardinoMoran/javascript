@@ -7,26 +7,37 @@
 
 (() => {
     'use strict'
-    
-    let deck = [];
-    const types = ['C', 'D', 'H', 'S'];
-    const specials = ['A', 'J', 'Q', 'K'];
 
-    let playerPoints = 0;
-    let computerPoints = 0;
+    let deck = [];
+    const types = ['C', 'D', 'H', 'S'],
+            specials = ['A', 'J', 'Q', 'K'];
+
+    let playerPoints = [];
 
     // Referencia html
-    const btnNewGame = document.querySelector('#btn-new-game');
-    const btnAskLetter = document.querySelector('#btn-ask-letter');
-    const btnStop = document.querySelector('#btn-stop');
+    const btnNewGame = document.querySelector('#btn-new-game'),
+            btnAskLetter = document.querySelector('#btn-ask-letter'),
+            btnStop = document.querySelector('#btn-stop');
 
-    const pointsSmall = document.querySelectorAll('small')
-    const cardPlayer = document.querySelector('#card-player');
-    const cardComputer = document.querySelector('#card-computer');
+    const pointsSmall = document.querySelectorAll('small'),
+            cardPlayer = document.querySelector('#card-player'),
+            cardComputer = document.querySelector('#card-computer');
 
+    // Initialize the game
+    const initializeGame = ( numberPlayers = 2) => {
+        deck = createDeck();
+
+        for (let i = 0; i < numberPlayers; i++) {
+            playerPoints.push(0);
+        }
+
+        console.log(playerPoints);
+    }
 
     /* Esta función crea un nuevo deck */
     const createDeck = () => {
+        deck = [];
+
         for (let i = 2; i <= 10; i++){
             for (let type of types) {
                 deck.push(i + type);
@@ -39,11 +50,8 @@
             }
         }
 
-        deck = _.shuffle(deck);
-        return deck;
+        return _.shuffle(deck);
     }
-
-    createDeck();
 
     const orderLetter = ( ) => {
         
@@ -51,14 +59,16 @@
             throw 'No cards left in the deck';
         }
 
-        const card = deck.pop();
-        return card;
+        return deck.pop();
     }
 
     const valueCard = ( card ) => {
         const value = card.substring(0, card.length -1);
-
         return isNaN( value) ? ( value === 'A' ) ? 11 : 10 : Number( value );
+    }
+
+    const accumulatePoints = () => {
+        
     }
 
     const orderLetterComputer = ( minPoints ) => {
@@ -123,7 +133,8 @@
     })
 
     btnNewGame.addEventListener('click', () => {
-        deck = [];
+
+        initializeGame();
         playerPoints = 0;
         computerPoints = 0;
 
