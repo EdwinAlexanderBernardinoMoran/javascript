@@ -343,3 +343,31 @@ console.log(mensaje); // Imprime: Eres mayor de edad
     // Código a ejecutar
   } while (condición);
   ```
+
+# S6 Patron Modulo y optimizaciones
+
+- El patrón módulo en JavaScript es una técnica que permite encapsular código dentro de una función, creando un ámbito privado para variables y funciones internas. Esto ayuda a evitar la contaminación del espacio global y facilita la organización del código. El patrón módulo utiliza funciones autoejecutables (IIFE) para retornar solo las partes públicas (métodos o propiedades) que se desean exponer.
+
+**Ejemplo básico:**
+
+```js
+const miModulo = (() => {
+  // Variables y funciones privadas
+  let contador = 0;
+
+  function incrementar() {
+    contador++;
+    console.log(contador);
+  }
+
+  // Exponer solo lo necesario
+  return {
+    incrementar,
+  };
+})();
+
+miModulo.incrementar(); // 1
+miModulo.incrementar(); // 2
+```
+
+Este patrón es útil para mantener el código limpio, seguro y modular, especialmente en aplicaciones grandes.
