@@ -17,9 +17,9 @@ const btnNewGame = document.querySelector('#btn-new-game');
 const btnAskLetter = document.querySelector('#btn-ask-letter');
 const btnStop = document.querySelector('#btn-stop');
 
-const poinstSmall = document.querySelectorAll('small')
-
-console.log(btnAskLetter);
+const pointsSmall = document.querySelectorAll('small')
+const cardPlayer = document.querySelector('#card-player');
+const cardComputer = document.querySelector('#card-computer');
 
 
 /* Esta función crea un nuevo deck */
@@ -58,10 +58,80 @@ const valueCard = ( card ) => {
     return isNaN( value) ? ( value === 'A' ) ? 11 : 10 : Number( value );
 }
 
+const orderLetterComputer = ( minPoints ) => {
+    do {
+        const card = orderLetter();
+
+        computerPoints = computerPoints + valueCard( card );
+
+        pointsSmall[1].innerText = computerPoints;
+
+        const imageCard = document.createElement('img');
+        imageCard.src = `assets/cards/${ card }.png`; // 3H, JD
+        imageCard.classList.add('card-player');
+        cardComputer.append( imageCard );
+
+        if ( minPoints > 21) {
+            break;
+        }
+    } while ( (computerPoints < minPoints ) && ( minPoints <= 21 ) );
+
+    setTimeout(() => {
+        if ( computerPoints === minPoints ) {
+            alert('This is a tie!');
+        } else if ( minPoints > 21 ) {
+            alert('The computer wins!');
+        } else if ( computerPoints > 21 ) {
+            alert('You win!');
+        }
+    }, 30)
+}
+
 // Events
 btnAskLetter.addEventListener('click', () => {
+
     const card = orderLetter();
 
     playerPoints = playerPoints + valueCard( card );
-    poinstSmall[0].innerText = playerPoints;
+
+    pointsSmall[0].innerText = playerPoints;
+
+    const imageCard = document.createElement('img');
+    imageCard.src = `assets/cards/${ card }.png`; // 3H, JD
+    imageCard.classList.add('card-player');
+    cardPlayer.append( imageCard );
+
+    if ( playerPoints > 21) {
+        btnAskLetter.disabled = true;
+        btnStop.disabled = true;
+        orderLetterComputer( playerPoints );
+    } else if ( playerPoints === 21) {
+        btnAskLetter.disabled = true;
+        btnStop.disabled = true;
+        orderLetterComputer( playerPoints );
+    }
+
+})
+
+btnStop.addEventListener('click', () => {
+    btnAskLetter.disabled = true;
+    btnStop.disabled = true;
+    orderLetterComputer( playerPoints );
+})
+
+btnNewGame.addEventListener('click', () => {
+    deck = [];
+    playerPoints = 0;
+    computerPoints = 0;
+
+    pointsSmall[0].innerText = 0;
+    pointsSmall[1].innerText = 0;
+
+    cardPlayer.innerHTML = '';
+    cardComputer.innerHTML = '';
+
+    btnAskLetter.disabled = false;
+    btnStop.disabled = false;
+
+    createDeck();
 })
