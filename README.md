@@ -371,3 +371,5 @@ miModulo.incrementar(); // 2
 ```
 
 Este patrón es útil para mantener el código limpio, seguro y modular, especialmente en aplicaciones grandes.
+
+# S7 - Clases en JavaScript y ESNext private properties
