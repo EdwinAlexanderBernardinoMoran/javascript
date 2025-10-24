@@ -25,13 +25,20 @@
     // Initialize the game
     const initializeGame = ( numberPlayers = 2) => {
         deck = createDeck();
+        playerPoints = [];
 
         for (let i = 0; i < numberPlayers; i++) {
             playerPoints.push(0);
         }
+
+        pointsSmall.forEach( elem => elem.innerText = 0 );
+        divCardPlayers.forEach( element => element.innerHTML = '' );
+
+        btnAskLetter.disabled = false;
+        btnStop.disabled = false;
     }
 
-    /* Esta función crea un nuevo deck */
+    // This function creates a new deck
     const createDeck = () => {
         deck = [];
 
@@ -50,6 +57,7 @@
         return _.shuffle(deck);
     }
 
+    // Function to take a letter
     const orderLetter = ( ) => {
         
         if( deck.length === 0 ) {
@@ -59,11 +67,13 @@
         return deck.pop();
     }
 
+    // Function to get the value of the card
     const valueCard = ( card ) => {
         const value = card.substring(0, card.length -1);
         return isNaN( value) ? ( value === 'A' ) ? 11 : 10 : Number( value );
     }
 
+    // Function to accumulate points
     const accumulatePoints = ( card, turn ) => {
         playerPoints[turn] = playerPoints[turn] + valueCard( card );
         pointsSmall[turn].innerText = playerPoints[turn];
@@ -71,6 +81,7 @@
         return playerPoints[turn];  
     }
 
+    // Function to create the card
     const createCard = ( card, turn ) => {
         const imageCard = document.createElement('img');
         imageCard.src = `assets/cards/${ card }.png`; // 3H, JD
@@ -78,26 +89,10 @@
         divCardPlayers[turn].append( imageCard );
     }
 
-    const orderLetterComputer = ( minPoints ) => {
-        let computerPoints = 0;
-        do {
-            const card = orderLetter();
-
-            // computerPoints = computerPoints + valueCard( card );
-            // pointsSmall[1].innerText = computerPoints;
-            computerPoints = accumulatePoints( card, playerPoints.length - 1 );
-            createCard( card, playerPoints.length - 1 );
-
-            // const imageCard = document.createElement('img');
-            // imageCard.src = `assets/cards/${ card }.png`; // 3H, JD
-            // imageCard.classList.add('card-player');
-            // cardComputer.append( imageCard );
-
-            if ( minPoints > 21) {
-                break;
-            }
-        } while ( (computerPoints < minPoints ) && ( minPoints <= 21 ) );
-
+    // Function to determine the winner
+    const determineWinner = () => {
+        
+        const [ minPoints, computerPoints ] = playerPoints;
         setTimeout(() => {
             if ( computerPoints === minPoints ) {
                 alert('This is a tie!');
@@ -105,33 +100,44 @@
                 alert('The computer wins!');
             } else if ( computerPoints > 21 ) {
                 alert('You win!');
+            } else {
+                alert('The computer wins!');
             }
         }, 30)
+
+        console.log("Nuevo");
+        
+    }
+
+    // Function for the computer's turn
+    const orderLetterComputer = ( minPoints ) => {
+
+        let computerPoints = 0;
+        do {
+            const card = orderLetter();
+            computerPoints = accumulatePoints( card, playerPoints.length - 1 );
+            createCard( card, playerPoints.length - 1 );
+
+        } while ( (computerPoints < minPoints ) && ( minPoints <= 21 ) );
+
+        determineWinner();
     }
 
     // Events
     btnAskLetter.addEventListener('click', () => {
 
         const card = orderLetter();
-
-        // playerPoints = playerPoints + valueCard( card );
-        // pointsSmall[0].innerText = playerPoints;
-        
         const playerPoints = accumulatePoints( card, 0 );
-        
-
-        // const imageCard = document.createElement('img');
-        // imageCard.src = `assets/cards/${ card }.png`; // 3H, JD
-        // imageCard.classList.add('card-player');
-        // cardPlayer.append( imageCard );
 
         createCard( card, 0)
 
         if ( playerPoints > 21) {
+            console.warn('You lost!');
             btnAskLetter.disabled = true;
             btnStop.disabled = true;
             orderLetterComputer( playerPoints );
         } else if ( playerPoints === 21) {
+            console.warn('21, genial!');
             btnAskLetter.disabled = true;
             btnStop.disabled = true;
             orderLetterComputer( playerPoints );
@@ -142,23 +148,15 @@
     btnStop.addEventListener('click', () => {
         btnAskLetter.disabled = true;
         btnStop.disabled = true;
-        orderLetterComputer( playerPoints );
+        orderLetterComputer( playerPoints[0] );
     })
 
     btnNewGame.addEventListener('click', () => {
-
         initializeGame();
-        // playerPoints = 0;
-        // computerPoints = 0;
-
-        // pointsSmall[0].innerText = 0;
-        // pointsSmall[1].innerText = 0;
-
-        // cardPlayer.innerHTML = '';
-        // cardComputer.innerHTML = '';
-
-        // btnAskLetter.disabled = false;
-        // btnStop.disabled = false;
     })
+
+    return {
+        initializeGame
+    };
 })(); // IIFE Funcion anónima autoejecutable = Patron Módulo
 
