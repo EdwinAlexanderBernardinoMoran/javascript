@@ -20,8 +20,7 @@
             btnStop = document.querySelector('#btn-stop');
 
     const pointsSmall = document.querySelectorAll('small'),
-            cardPlayer = document.querySelector('#card-player'),
-            cardComputer = document.querySelector('#card-computer');
+            divCardPlayers = document.querySelectorAll('.cards');
 
     // Initialize the game
     const initializeGame = ( numberPlayers = 2) => {
@@ -30,8 +29,6 @@
         for (let i = 0; i < numberPlayers; i++) {
             playerPoints.push(0);
         }
-
-        console.log(playerPoints);
     }
 
     /* Esta función crea un nuevo deck */
@@ -67,22 +64,34 @@
         return isNaN( value) ? ( value === 'A' ) ? 11 : 10 : Number( value );
     }
 
-    const accumulatePoints = () => {
-        
+    const accumulatePoints = ( card, turn ) => {
+        playerPoints[turn] = playerPoints[turn] + valueCard( card );
+        pointsSmall[turn].innerText = playerPoints[turn];
+
+        return playerPoints[turn];  
+    }
+
+    const createCard = ( card, turn ) => {
+        const imageCard = document.createElement('img');
+        imageCard.src = `assets/cards/${ card }.png`; // 3H, JD
+        imageCard.classList.add('card-player');
+        divCardPlayers[turn].append( imageCard );
     }
 
     const orderLetterComputer = ( minPoints ) => {
+        let computerPoints = 0;
         do {
             const card = orderLetter();
 
-            computerPoints = computerPoints + valueCard( card );
+            // computerPoints = computerPoints + valueCard( card );
+            // pointsSmall[1].innerText = computerPoints;
+            computerPoints = accumulatePoints( card, playerPoints.length - 1 );
+            createCard( card, playerPoints.length - 1 );
 
-            pointsSmall[1].innerText = computerPoints;
-
-            const imageCard = document.createElement('img');
-            imageCard.src = `assets/cards/${ card }.png`; // 3H, JD
-            imageCard.classList.add('card-player');
-            cardComputer.append( imageCard );
+            // const imageCard = document.createElement('img');
+            // imageCard.src = `assets/cards/${ card }.png`; // 3H, JD
+            // imageCard.classList.add('card-player');
+            // cardComputer.append( imageCard );
 
             if ( minPoints > 21) {
                 break;
@@ -105,14 +114,18 @@
 
         const card = orderLetter();
 
-        playerPoints = playerPoints + valueCard( card );
+        // playerPoints = playerPoints + valueCard( card );
+        // pointsSmall[0].innerText = playerPoints;
+        
+        const playerPoints = accumulatePoints( card, 0 );
+        
 
-        pointsSmall[0].innerText = playerPoints;
+        // const imageCard = document.createElement('img');
+        // imageCard.src = `assets/cards/${ card }.png`; // 3H, JD
+        // imageCard.classList.add('card-player');
+        // cardPlayer.append( imageCard );
 
-        const imageCard = document.createElement('img');
-        imageCard.src = `assets/cards/${ card }.png`; // 3H, JD
-        imageCard.classList.add('card-player');
-        cardPlayer.append( imageCard );
+        createCard( card, 0)
 
         if ( playerPoints > 21) {
             btnAskLetter.disabled = true;
@@ -135,19 +148,17 @@
     btnNewGame.addEventListener('click', () => {
 
         initializeGame();
-        playerPoints = 0;
-        computerPoints = 0;
+        // playerPoints = 0;
+        // computerPoints = 0;
 
-        pointsSmall[0].innerText = 0;
-        pointsSmall[1].innerText = 0;
+        // pointsSmall[0].innerText = 0;
+        // pointsSmall[1].innerText = 0;
 
-        cardPlayer.innerHTML = '';
-        cardComputer.innerHTML = '';
+        // cardPlayer.innerHTML = '';
+        // cardComputer.innerHTML = '';
 
-        btnAskLetter.disabled = false;
-        btnStop.disabled = false;
-
-        createDeck();
+        // btnAskLetter.disabled = false;
+        // btnStop.disabled = false;
     })
 })(); // IIFE Funcion anónima autoejecutable = Patron Módulo
 
