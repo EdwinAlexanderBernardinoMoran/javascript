@@ -373,3 +373,31 @@ miModulo.incrementar(); // 2
 Este patrón es útil para mantener el código limpio, seguro y modular, especialmente en aplicaciones grandes.
 
 # S7 - Clases en JavaScript y ESNext private properties
+
+### Clases básicas
+
+- Son una forma de definir plantillas para crear objetos con propiedades y métodos compartidos. Aunque JavaScript es un lenguaje basado en prototipos, la sintaxis de clases (introducida en ES6) facilita la escritura y comprensión del código orientado a objetos.
+
+**Conceptos clave**:
+
+- Una clase define cómo se construyen los objetos (instancias).
+- Se usa la palabra clave class para declarar una clase.
+- El método especial constructor se ejecuta al crear una nueva instancia.
+- Puedes definir métodos dentro de la clase que serán compartidos por todas las instancias.
+- Los métodos definidos dentro de la clase no se copian en cada instancia, sino que se comparten.
+
+```js
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+}
+
+const personOne = new Person("Ana", 30);
+personOne.greet();
+```
