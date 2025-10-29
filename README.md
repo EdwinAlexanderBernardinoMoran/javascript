@@ -476,3 +476,31 @@ class Person {
 console.log(`Conteo estatico ${Person._count}`);
 console.log(Person.count);
 ```
+
+### Extends - Class con SubClass
+
+Una subclase es una clase que hereda (extiende) propiedades y métodos de otra clase llamada clase padre o superclase. Esto implementa el concepto de herencia en programación orientada a objetos.
+
+```js
+// Clase padre
+class Animal {
+  constructor(nombre) {
+    this.nombre = nombre;
+  }
+
+  hablar() {
+    console.log(`${this.nombre} hace un sonido`);
+  }
+}
+
+// Subclase que extiende de Animal
+class Perro extends Animal {
+  constructor(nombre) {
+    super(nombre); // Llama al constructor de la clase padre
+  }
+
+  hablar() {
+    console.log(`${this.nombre} hace guau guau!`);
+  }
+}
+```
