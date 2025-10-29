@@ -531,3 +531,38 @@ const rectangle = new Rectangle(10, 15);
 console.log(rectangle);
 console.log(rectangle.calculateArea());
 ```
+
+### Singleton
+
+Es un patrón de diseño que permite crear solo una única instancia de una clase u objeto durante toda la ejecución del programa. Es decir, aunque intentes crear varias instancias, todas apuntarán al mismo objeto.
+
+**Ejemplos típicos**:
+
+- Configuración de la app
+- Conexión a una base de datos
+- Manejo de sesión
+- Carrito de compras
+
+```js
+class Singleton {
+  static instance;
+  name = "";
+
+  constructor(name = "") {
+    if (!!Singleton.instance) {
+      return Singleton.instance;
+    }
+
+    Singleton.instance = this;
+    this.name = name;
+  }
+}
+
+const instanceOne = new Singleton("First Instance");
+const instanceTwo = new Singleton("Second Instance");
+const instanceThree = new Singleton("Third Instance");
+
+console.log(`Name instanceOne: ${instanceOne.name}`);
+console.log(`Name instanceTwo: ${instanceTwo.name}`);
+console.log(`Name instanceThree: ${instanceThree.name}`);
+```
