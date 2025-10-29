@@ -1,5 +1,15 @@
 class Person{
 
+    static _count = 0;
+    static get count() {
+        return `${Person._count} instancias`
+    }
+
+    static message() {
+        console.log("Hello I am method static");
+        
+    }
+
     name;
     age;
     foot;
@@ -9,6 +19,9 @@ class Person{
         if (!name) throw Error("Name is required");
         this.name = name;
         this.age = age;
+
+        // Cuenta las instancias
+        Person._count++
     }
 
     set setFoodFavorite( food ) {
@@ -39,3 +52,7 @@ console.log(iroMan);
 
 spiderMan.whoAmI();
 iroMan.whoAmI();
+
+// Conteo estatico
+console.log(`Conteo estatico ${Person._count}`);
+console.log(Person.count);

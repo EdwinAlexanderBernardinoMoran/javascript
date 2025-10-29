@@ -401,3 +401,78 @@ class Person {
 const personOne = new Person("Ana", 30);
 personOne.greet();
 ```
+
+### Sets y Gets
+
+Getters y setters son propiedades especiales que permiten ejecutar código al leer o asignar una propiedad, pero se usan como si fueran campos normales.
+
+- **get**: se ejecuta al leer la propiedad.
+- **set**: se ejecuta al asignar la propiedad.
+
+```js
+const persona = {
+  _nombre: "Ana",
+  get nombre() {
+    return this._nombre;
+  },
+  set nombre(valor) {
+    // validación y asignación al campo interno
+    if (typeof valor !== "string")
+      throw new TypeError("nombre debe ser string");
+    this._nombre = valor.trim();
+  },
+};
+
+console.log(persona.nombre); // lee -> 'Ana'
+persona.nombre = "  María  "; // ejecuta setter
+console.log(persona.nombre); // 'María'
+```
+
+### Propiedades, gets y métodos estáticos
+
+- Definición: Los métodos declarados con la palabra clave `static` dentro de una clase pertenecen a la clase, no a sus instancias. Se invocan usando `Clase.metodo()` y no `instancia.metodo()`.
+- Uso típico: utilidades o helpers relacionados con la clase, fábricas (factory methods), constantes o comportamiento que no depende del estado de una instancia.
+- Acceso: Un método estático puede usar otras propiedades/métodos estáticos (vía `this` o el nombre de la clase), pero no puede acceder a propiedades de instancia (`this.prop` en una instancia).
+- Herencia: Los métodos estáticos se heredan por las subclases y pueden ser sobrescritos.
+
+```js
+class Person {
+  static _count = 0;
+  static get count() {
+    return `${Person._count} instancias`;
+  }
+
+  static message() {
+    console.log("Hello I am method static");
+  }
+
+  name;
+  age;
+  foot;
+
+  constructor(name, age) {
+    if (!name) throw Error("Name is required");
+    this.name = name;
+    this.age = age;
+
+    // Cuenta las instancias
+    Person._count++;
+  }
+
+  set setFoodFavorite(food) {
+    this.foot = food.toUpperCase();
+  }
+
+  get getFoodFavorite() {
+    return `${this.name}'s favorite food is ${this.foot}`;
+  }
+
+  whoAmI() {
+    console.log(`Hi, I'm ${this.name} and I'm ${this.age} years old.`);
+  }
+}
+
+// Impresion de contenido de metodos y propiedades staticas
+console.log(`Conteo estatico ${Person._count}`);
+console.log(Person.count);
+```
