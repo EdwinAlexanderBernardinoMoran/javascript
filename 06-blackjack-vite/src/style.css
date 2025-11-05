@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html,
+body {
+  background-color: #2f4f30;
+  color: #fff;
+}
+
+.title {
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+  padding: 15px;
+  font-size: 1.5em;
+}
+
+.card-player {
+  position: relative;
+  width: 150px;
+  left: 100px;
+  margin-left: -75px;
+}
+
+#card-player,
+#card-computer {
+  height: 240px;
+}
