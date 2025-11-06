@@ -1,5 +1,7 @@
 import _ from 'underscore';
 import { createDeck } from './usecases/create-deck';
+import { valueCard } from './usecases/value-card';
+import { orderLetter } from './usecases/order-letter';
 
 /**
  * 2C = Two of Clubs
@@ -39,24 +41,6 @@ import { createDeck } from './usecases/create-deck';
 
         btnAskLetter.disabled = false;
         btnStop.disabled = false;
-    }
-
-    
-
-    // Function to take a letter
-    const orderLetter = ( ) => {
-        
-        if( deck.length === 0 ) {
-            throw 'No cards left in the deck';
-        }
-
-        return deck.pop();
-    }
-
-    // Function to get the value of the card
-    const valueCard = ( card ) => {
-        const value = card.substring(0, card.length -1);
-        return isNaN( value) ? ( value === 'A' ) ? 11 : 10 : Number( value );
     }
 
     // Function to accumulate points
@@ -100,7 +84,7 @@ import { createDeck } from './usecases/create-deck';
 
         let computerPoints = 0;
         do {
-            const card = orderLetter();
+            const card = orderLetter( deck );
             computerPoints = accumulatePoints( card, playerPoints.length - 1 );
             createCard( card, playerPoints.length - 1 );
 
@@ -112,7 +96,7 @@ import { createDeck } from './usecases/create-deck';
     // Events
     btnAskLetter.addEventListener('click', () => {
 
-        const card = orderLetter();
+        const card = orderLetter( deck );
         const playerPoints = accumulatePoints( card, 0 );
 
         createCard( card, 0)
@@ -145,4 +129,3 @@ import { createDeck } from './usecases/create-deck';
         initializeGame
     };
 })(); // IIFE Funcion anónima autoejecutable = Patron Módulo
-
