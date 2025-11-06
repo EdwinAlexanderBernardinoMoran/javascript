@@ -1,7 +1,6 @@
 import _ from 'underscore';
-import { createDeck } from './usecases/create-deck';
-import { valueCard } from './usecases/value-card';
-import { orderLetter } from './usecases/order-letter';
+
+import { createDeck, orderLetter, valueCard } from './usecases';
 
 /**
  * 2C = Two of Clubs
