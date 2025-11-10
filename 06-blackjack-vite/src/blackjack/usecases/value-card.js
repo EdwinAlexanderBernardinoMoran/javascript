@@ -1,6 +1,6 @@
 /**
  * 
- * @param {String} card 
+ * @param {String} card Value of the card
  * @returns To get the value of the card
  */
 

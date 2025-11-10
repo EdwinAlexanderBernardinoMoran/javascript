@@ -3,7 +3,7 @@ import _ from 'underscore';
 
 /**
  * Create a new deck of cards
- * @param {Array<String>} cardType 
+ * @param {Array<String>} cardType car
  * @param {Array<String>} specialTypes 
  * @returns {Array<String>} deck
  */

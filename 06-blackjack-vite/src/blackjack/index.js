@@ -1,6 +1,6 @@
 import _ from 'underscore';
 
-import { createDeck, orderLetter, valueCard } from './usecases';
+import { createDeck, orderLetter, accumulatePoints, createCard , orderLetterComputer} from './usecases';
 
 /**
  * 2C = Two of Clubs
@@ -25,6 +25,7 @@ import { createDeck, orderLetter, valueCard } from './usecases';
 
     const pointsSmall = document.querySelectorAll('small'),
             divCardPlayers = document.querySelectorAll('.cards');
+            
 
     // Initialize the game
     const initializeGame = ( numberPlayers = 2) => {
@@ -42,74 +43,27 @@ import { createDeck, orderLetter, valueCard } from './usecases';
         btnStop.disabled = false;
     }
 
-    // Function to accumulate points
-    const accumulatePoints = ( card, turn ) => {
-        playerPoints[turn] = playerPoints[turn] + valueCard( card );
-        pointsSmall[turn].innerText = playerPoints[turn];
-
-        return playerPoints[turn];  
-    }
-
-    // Function to create the card
-    const createCard = ( card, turn ) => {
-        const imageCard = document.createElement('img');
-        imageCard.src = `assets/cards/${ card }.png`; // 3H, JD
-        imageCard.classList.add('card-player');
-        divCardPlayers[turn].append( imageCard );
-    }
-
-    // Function to determine the winner
-    const determineWinner = () => {
-        
-        const [ minPoints, computerPoints ] = playerPoints;
-        setTimeout(() => {
-            if ( computerPoints === minPoints ) {
-                alert('This is a tie!');
-            } else if ( minPoints > 21 ) {
-                alert('The computer wins!');
-            } else if ( computerPoints > 21 ) {
-                alert('You win!');
-            } else {
-                alert('The computer wins!');
-            }
-        }, 30)
-
-        console.log("Nuevo");
-        
-    }
-
-    // Function for the computer's turn
-    const orderLetterComputer = ( minPoints ) => {
-
-        let computerPoints = 0;
-        do {
-            const card = orderLetter( deck );
-            computerPoints = accumulatePoints( card, playerPoints.length - 1 );
-            createCard( card, playerPoints.length - 1 );
-
-        } while ( (computerPoints < minPoints ) && ( minPoints <= 21 ) );
-
-        determineWinner();
-    }
-
     // Events
     btnAskLetter.addEventListener('click', () => {
 
         const card = orderLetter( deck );
-        const playerPoints = accumulatePoints( card, 0 );
+        const playerPointsTwo = accumulatePoints( card, 0, playerPoints, pointsSmall);
 
-        createCard( card, 0)
+        console.log("PlayerPoints", playerPointsTwo);
+        console.log("PlayerPoints", playerPoints);
 
-        if ( playerPoints > 21) {
+        createCard( card, 0, divCardPlayers)
+
+        if ( playerPointsTwo > 21) {
             console.warn('You lost!');
             btnAskLetter.disabled = true;
             btnStop.disabled = true;
-            orderLetterComputer( playerPoints );
-        } else if ( playerPoints === 21) {
+            orderLetterComputer( playerPointsTwo, playerPoints, pointsSmall, divCardPlayers, deck);
+        } else if ( playerPointsTwo === 21) {
             console.warn('21, genial!');
             btnAskLetter.disabled = true;
             btnStop.disabled = true;
-            orderLetterComputer( playerPoints );
+            orderLetterComputer( playerPointsTwo, playerPoints, pointsSmall, divCardPlayers, deck);
         }
 
     })
@@ -117,7 +71,7 @@ import { createDeck, orderLetter, valueCard } from './usecases';
     btnStop.addEventListener('click', () => {
         btnAskLetter.disabled = true;
         btnStop.disabled = true;
-        orderLetterComputer( playerPoints[0] );
+        orderLetterComputer( playerPoints[0], playerPoints.length, pointsSmall, divCardPlayers, deck);
     })
 
     btnNewGame.addEventListener('click', () => {
