@@ -58,7 +58,12 @@ const addTodo = ( description ) => {
  * @param {String} id 
  */
 const toggleTodo = ( id ) => {
-    throw new Error("Function not implemented");
+    state.todos = state.todos.map( todo => {
+        if (todo.id === id) {
+            todo.done = !todo.done;
+        }
+        return todo;
+    })
 }
 
 /**
