@@ -30,7 +30,7 @@ const loadStore = () => {
  * 
  * @param {String} filter filter name
  */
-const getTodo = (filter = Filters.ALL) => {
+const getTodos = (filter = Filters.ALL) => {
     switch (filter) {
         case Filters.ALL:
             return [...state.todos];
@@ -97,7 +97,7 @@ const getCurrentFilter = () => {
 export default {
     initStore,
     loadStore,
-    getTodo,
+    getTodos,
     addTodo,
     toggleTodo,
     deleteTodo,
