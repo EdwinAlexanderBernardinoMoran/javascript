@@ -1,6 +1,6 @@
 import { Todo } from '../todo/models/todo.model'
 
-const Filters = {
+export const Filters = {
     ALL: 'all',
     COMPLETED: 'completed',
     PENDING: 'pending'
@@ -103,6 +103,7 @@ const setFilter = ( newFilter = Filters.ALL) => {
 }
 
 const getCurrentFilter = () => {
+    console.log('Current filter:', state.filter);
     return state.filter;
 }
 
