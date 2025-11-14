@@ -566,3 +566,42 @@ console.log(`Name instanceOne: ${instanceOne.name}`);
 console.log(`Name instanceTwo: ${instanceTwo.name}`);
 console.log(`Name instanceThree: ${instanceThree.name}`);
 ```
+
+# S11 - Callbacks, promesas y generadores
+
+### Variables de entorno
+
+Las variables de entorno en JavaScript con Vite son valores configurables que permiten almacenar información sensible o específica del entorno (desarrollo, producción, etc.) sin exponerla directamente en el código fuente.
+
+**Características en Vite:**
+
+- Se definen en archivos `.env` en la raíz del proyecto.
+- Solo las variables que comienzan con `VITE_` son expuestas al código cliente.
+- Se acceden mediante `import.meta.env.VITE_NOMBRE_VARIABLE`.
+
+**Ejemplo de uso:**
+
+Crear un archivo `.env`:
+
+```
+VITE_API_URL=https://api.example.com
+VITE_API_KEY=mi-clave-secreta
+```
+
+Acceder en el código:
+
+```js
+const apiUrl = import.meta.env.VITE_API_URL;
+const apiKey = import.meta.env.VITE_API_KEY;
+
+console.log(apiUrl); // https://api.example.com
+```
+
+**Archivos de entorno comunes:**
+
+- `.env` - Variables por defecto
+- `.env.local` - Variables locales (ignoradas por Git)
+- `.env.production` - Variables para producción
+- `.env.development` - Variables para desarrollo
+
+**Importante:** Nunca subas archivos `.env` con información sensible a repositorios públicos.
