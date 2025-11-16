@@ -1,7 +1,9 @@
 import './style.css'
 import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
-import { enviromentsComponents } from './concepts/01-enviroments'
+import { callbacksComponents } from './concepts/02-callbacks'
+// import { enviromentsComponents } from './concepts/01-enviroments'
+
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -20,4 +22,5 @@ document.querySelector('#app').innerHTML = `
 console.log('Hello Vite!')
 
 const element = document.querySelector('.card')
-enviromentsComponents(element)
+// enviromentsComponents(element)
+callbacksComponents(element)
