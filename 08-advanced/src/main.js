@@ -1,7 +1,8 @@
 import './style.css'
 import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
-import { callbacksComponents } from './concepts/02-callbacks'
+import { promisesComponents } from './concepts/03-promises'
+// import { callbacksComponents } from './concepts/02-callbacks'
 // import { enviromentsComponents } from './concepts/01-enviroments'
 
 
@@ -23,4 +24,5 @@ console.log('Hello Vite!')
 
 const element = document.querySelector('.card')
 // enviromentsComponents(element)
-callbacksComponents(element)
+// callbacksComponents(element)
+promisesComponents(element)

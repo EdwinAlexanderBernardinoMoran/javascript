@@ -605,3 +605,70 @@ console.log(apiUrl); // https://api.example.com
 - `.env.development` - Variables para desarrollo
 
 **Importante:** Nunca subas archivos `.env` con información sensible a repositorios públicos.
+
+### Callbacks
+
+Es una funcion que recibe como argumento otra funcion y se invoca esa funcion. Es como decir: "Aquí está mi número de teléfono, llámame cuando hayas terminado".
+
+```js
+export const callbacksComponents = (element) => {
+  const id = "5d86371f97c29d020f1e1f6d";
+  findHero(id, (hero) => {
+    element.innerHTML = hero.name;
+  });
+};
+
+const findHero = (id, callback) => {
+  const hero = heroes.find((hero) => hero.id === id);
+
+  callback(hero);
+};
+```
+
+### Callbacks Hell
+
+Callbacks Hell (también conocido como "Pyramid of Doom") es un anti-patrón en JavaScript que ocurre cuando se anidan múltiples callbacks dentro de otros callbacks, creando una estructura de código difícil de leer y mantener.
+
+**Los callbacks hell aparecen cuando**:
+
+- Tienes operaciones asíncronas que dependen una de otra
+- Cada operación requiere un callback para manejar su resultado
+- Los callbacks se anidan profundamente, formando una "pirámide" de código
+
+### Promesas
+
+Una promesa en JavaScript es un objeto que representa el resultado eventual (éxito o fallo) de una operación asíncrona. Es una forma más elegante de manejar código asíncrono comparado con los callbacks, evitando el callback hell.
+
+**Estados de una promesa:**
+
+- **Pending (Pendiente)**: Estado inicial, la operación aún no se ha completado.
+- **Fulfilled (Cumplida)**: La operación se completó exitosamente.
+- **Rejected (Rechazada)**: La operación falló.
+
+**Sintaxis básica:**
+
+```js
+const myPromise = new Promise((resolve, reject) => {
+  // Operación asíncrona
+  const success = true;
+
+  if (success) {
+    resolve("Operación exitosa"); // Cumplida
+  } else {
+    reject("Operación fallida"); // Rechazada
+  }
+});
+
+// Consumir la promesa
+myPromise
+  .then((result) => console.log(result)) // Maneja el éxito
+  .catch((error) => console.error(error)) // Maneja el error
+  .finally(() => console.log("Promesa finalizada")); // Siempre se ejecuta
+```
+
+**Ventajas sobre callbacks:**
+
+- Código más limpio y legible
+- Mejor manejo de errores
+- Encadenamiento de operaciones asíncronas
+- Evita el callback hell
