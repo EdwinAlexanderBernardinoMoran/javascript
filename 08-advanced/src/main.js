@@ -22,8 +22,6 @@ document.querySelector('#app').innerHTML = `
   </div>
 `
 
-console.log('Hello Vite!')
-
 const element = document.querySelector('.card')
 // enviromentsComponents(element)
 // callbacksComponents(element)
