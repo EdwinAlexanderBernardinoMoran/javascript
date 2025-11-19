@@ -1,5 +1,3 @@
-import { heroes } from "../data/hero"
-
 /**
  * 
  * @param {HTMLDivElement} element 
