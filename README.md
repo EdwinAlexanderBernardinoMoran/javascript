@@ -672,3 +672,259 @@ myPromise
 - Mejor manejo de errores
 - Encadenamiento de operaciones asíncronas
 - Evita el callback hell
+
+### Promesas Hell
+
+Promises Hell (o "Callback Hell adaptado a Promises") ocurre cuando anidas múltiples promesas de manera innecesaria, creando código difícil de leer y mantener.
+
+```js
+// Forma 1
+findHero(id)
+  .then((hero) => {
+    findHero(idTwo)
+      .then((heroTwo) => {
+        renderTwoHeroes(hero, heroTwo);
+      })
+      .catch(renderError);
+  })
+  .catch(renderError);
+
+// Forma 2
+findHero(id)
+  .then((hero) => {
+    heroOne = hero;
+    return findHero(idTwo);
+  })
+  .then((heroTwo) => {
+    renderTwoHeroes(heroOne, heroTwo);
+  })
+  .catch(renderError);
+```
+
+### Promises Race
+
+**Promise.race()** es un método estático que devuelve una promesa que se resuelve o rechaza tan pronto como una de las promesas en el iterable se resuelve o rechaza, con el valor o razón de esa promesa. ( Imagina una carrera de velocidad: el primer corredor en cruzar la meta determina el resultado, sin importar lo que hagan los demás. )
+
+```js
+// Caso 1
+function fetchWithTimeout(url, timeout = 5000) {
+  const fetchPromise = fetch(url);
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error("Timeout")), timeout)
+  );
+
+  return Promise.race([fetchPromise, timeoutPromise]);
+}
+
+fetchWithTimeout("https://api.example.com/data", 3000)
+  .then((response) => response.json())
+  .catch((error) => console.error("Falló o tomó demasiado tiempo:", error));
+
+// Caso 2
+export const promiseRaceComponent = (element) => {
+  element.innerHTML = "Loading ...";
+
+  const renderValue = (value) => {
+    element.innerHTML = value;
+  };
+
+  // No importa el orden
+  Promise.race([slowPromise(), mediumPromise(), fastPromise()]).then(
+    renderValue
+  );
+};
+
+const slowPromise = () =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve("Slow Promise"), 2000);
+  });
+
+const mediumPromise = () =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve("Medium Promise"), 1500);
+  });
+
+const fastPromise = () =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve("Fast Promise"), 3000);
+  });
+```
+
+### Async
+
+Async se refiere a la programación asíncrona, que permite ejecutar operaciones sin bloquear el hilo principal de ejecución.
+
+**Características principales**:
+
+- Permiten escribir código asíncrono que parece síncrono
+- Una función async siempre retorna una Promise
+- Dentro de ellas puedes usar await para esperar Promises sin .then()
+
+```js
+export const asyncComponent = (element) => {
+  const id = "5d86371fd55e2e2a30fe1ccbf";
+
+  findHero(id)
+    .then((name) => (element.innerHTML = name))
+    .catch((error) => (element.innerHTML = error));
+};
+
+/**
+ *
+ * @param {String} id
+ * @returns {Promise<String>}
+ */
+const findHero = async (id) => {
+  const hero = heroes.find((hero) => hero.id === id);
+  if (!hero) throw `Hero with id ${id} not found`;
+  return hero.name;
+};
+```
+
+### Async await
+
+Async/await es una sintaxis moderna en JavaScript que hace que el código asíncrono sea más fácil de escribir y leer, haciéndolo parecer más sincrónico.
+
+**Conceptos Clave**
+
+### 1. `async` Function
+
+- Declara una función asíncrona que siempre retorna una **Promise**.
+- Permite usar `await` dentro de ella.
+
+### 2. `await` Keyword
+
+- Pausa la ejecución de la función hasta que la **Promise** se resuelva.
+- Solo funciona dentro de funciones `async`.
+- Retorna el valor resuelto de la **Promise**.
+
+### Errores en Async-Await
+
+Basicamente se atrapan utilizando un try catch de la siguiente manera.
+
+```js
+export const asyncAwaitComponent = async (element) => {
+  const id = "5d86371fd55e2e2a30fe1ccb1f";
+  const idTwo = "5d86371fd55e2e2a30fe1ccb2";
+
+  element.innerHTML = "Loading...";
+
+  // Tambien se puede desustruturar
+  try {
+    const hero = await findHero(id);
+    const heroTwo = await findHero(idTwo);
+
+    element.innerHTML = `${hero.name} / ${heroTwo.name}`;
+  } catch (error) {
+    element.innerHTML = error;
+  }
+};
+
+// Funciona async await
+const findHero = async (id) => {
+  const hero = heroes.find((hero) => hero.id === id);
+
+  if (!hero) throw `Hero with id ${id} not found`;
+
+  return hero;
+};
+```
+
+### Optimizar promesas no secuenciales
+
+Esto quiere decir que ninguna de las promesas depende de la otra para ser ejecutada, esto se aria de la siguiente manera.
+
+```js
+// Codigo de ejemplo.
+/**
+ *
+ * @param {HTMLDivElement} element
+ */
+export const asyncAwaitOptimizeComponent = async (element) => {
+  console.time("Start");
+
+  const [valueOne, valueTwo, valueThree] = await Promise.all([
+    slowPromise(),
+    mediumPromise(),
+    fastPromise(),
+  ]);
+
+  element.innerHTML = `${valueOne} / ${valueTwo} / ${valueThree}`;
+
+  console.timeEnd("Start");
+};
+
+const slowPromise = () =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve("Slow Promise"), 2000);
+  });
+
+const mediumPromise = () =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve("Medium Promise"), 1500);
+  });
+
+const fastPromise = () =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve("Fast Promise"), 1000);
+  });
+```
+
+### for await y if await
+
+El bucle **for await**...of se usa para iterar sobre iterables asíncronos (objetos que implementan el protocolo de iteración asíncrona). Es útil cuando necesitas procesar una secuencia de promesas de forma secuencial.
+
+```js
+export const forAwaitComponent = async (element) => {
+  const id = "5d86371fd55e2e2a30fe1ccb2";
+
+  // *****************************************
+  // Se puede utilizar await dentro de un if
+  if (await getHeroAsync(id)) {
+    element.innerHTML = "Si existe";
+    return;
+  }
+
+  // *****************************************
+  const heroIds = heroes.map((hero) => hero.id);
+
+  const heroPromises = getHeroesAsync(heroIds);
+
+  for await (const hero of heroPromises) {
+    element.innerHTML += `${hero.name} <br/>`;
+  }
+};
+
+/**
+ *
+ * @param {Array<String>} heroIds
+ * @returns {Array<Promise>}
+ */
+const getHeroesAsync = (heroIds) => {
+  const heroPromises = [];
+
+  heroIds.forEach((id) => {
+    heroPromises.push(getHeroAsync(id));
+  });
+
+  return heroPromises;
+};
+
+const getHeroAsync = async (id) => {
+  await new Promise((resolve) => {
+    setTimeout(() => resolve(), 1000);
+  });
+
+  return heroes.find((hero) => hero.id === id);
+};
+```
+
+### Funciones Generadoras
+
+La declaración `function*`(la palabra clave functionseguida de un asterisco) define una función generadora, que devuelve un objeto Generator.
+
+```js
+function* nombre([param[, param[, ... param]]]) {
+  instrucciones
+}
+```

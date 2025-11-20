@@ -1,7 +1,8 @@
 import './style.css'
 import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
-import { forAwaitComponent } from './concepts/08-for-await'
+// import { forAwaitComponent } from './concepts/08-for-await'
+import { generatorFunctionsComponent } from './concepts/09-generator-functions'
 // import { promisesComponents } from './concepts/03-promises'
 // import { promiseRaceComponent } from './concepts/04-promise-race'
 // import { asyncComponent } from './concepts/05-async'
@@ -33,4 +34,5 @@ const element = document.querySelector('.card')
 // asyncComponent(element)
 // asyncAwaitComponent(element)
 // asyncAwaitOptimizeComponent(element)
-forAwaitComponent(element)
+// forAwaitComponent(element)
+generatorFunctionsComponent(element)
