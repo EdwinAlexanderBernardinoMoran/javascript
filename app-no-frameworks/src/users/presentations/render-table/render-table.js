@@ -27,7 +27,7 @@ const createTable = () => {
  * 
  * @param {HTMLDivElement} element 
  */
-export const RenderTable = (element) => {
+export const renderTable = (element) => {
     const users = usersStore.getUsers();
 
     if (!table) {
