@@ -12,7 +12,6 @@ export const loadUsersByPage = async (page = 1) => {
     const {data} = await response.json()
 
     const users = data.map(userApi => userToModel(userApi));
-    console.log(users);
 
     return users;
 }
