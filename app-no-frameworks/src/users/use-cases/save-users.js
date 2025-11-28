@@ -1,3 +1,4 @@
+import { userModelToReverse } from "../mappers/user-reverse";
 import { User } from "../models/user.model";
 
 /**
@@ -5,16 +6,17 @@ import { User } from "../models/user.model";
  * @param {Like<User>} userLike 
  */
 export const saveUser = async (userLike) => {
-    const user = new User(userLike);
+    const user = new User(userLike)
 
-    // TODO: Falta un mapper
+    // Mapper
+    const userToSave = userModelToReverse(user);
 
     if (user.id) {
         throw Error('Actualizar usuario no implementado');
         return;
     }
 
-    const updatedUser = await createUser(user);
+    const updatedUser = await createUser(userToSave);
     return updatedUser;
 }
 

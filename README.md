@@ -928,3 +928,16 @@ function* nombre([param[, param[, ... param]]]) {
   instrucciones
 }
 ```
+
+### S12 - CRUD No Frameworks.
+
+### Mapper
+
+Un **mapper** en JavaScript es una función o patrón que transforma datos de un formato a otro. Es especialmente útil para convertir datos provenientes de APIs, bases de datos o servicios externos a un formato que tu aplicación necesita.
+
+**Características principales:**
+
+- **Transformación de datos**: Convierte objetos con una estructura a objetos con otra estructura diferente.
+- **Desacoplamiento**: Separa la lógica de transformación del resto de la aplicación.
+- **Reutilización**: Permite usar la misma lógica de transformación en múltiples lugares.
+- **Limpieza de código**: Mantiene el código organizado y fácil de mantener.
