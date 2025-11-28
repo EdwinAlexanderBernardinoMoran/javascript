@@ -1,8 +1,7 @@
-import "./render-table.css";
-
 import usersStore from '../../store/users.store'
 import { showModal } from "../render-modal/render-modal";
 import { deleteUserById } from "../../use-cases/delete-user-by-id";
+import "./render-table.css";
 
 let table;
 

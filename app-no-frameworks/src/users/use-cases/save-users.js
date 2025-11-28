@@ -7,6 +7,9 @@ import { User } from "../models/user.model";
  * @param {Like<User>} userLike 
  */
 export const saveUser = async (userLike) => {
+    console.log("Update");
+    
+    console.log({userLike});
     const user = new User(userLike)
 
     // Mapper
@@ -15,6 +18,7 @@ export const saveUser = async (userLike) => {
     let userUpdated;
 
     if (user.id) {
+
         userUpdated = await updateUser(userToSave);
     } else {
         userUpdated = await createUser(userToSave);
