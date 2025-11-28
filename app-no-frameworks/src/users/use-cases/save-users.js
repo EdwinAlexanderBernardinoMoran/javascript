@@ -1,4 +1,5 @@
 import { userModelToReverse } from "../mappers/user-reverse";
+import { userToModel } from "../mappers/user.mapper";
 import { User } from "../models/user.model";
 
 /**
@@ -11,13 +12,15 @@ export const saveUser = async (userLike) => {
     // Mapper
     const userToSave = userModelToReverse(user);
 
+    let userUpdated;
+
     if (user.id) {
-        throw Error('Actualizar usuario no implementado');
-        return;
+        userUpdated = await updateUser(userToSave);
+    } else {
+        userUpdated = await createUser(userToSave);
     }
 
-    const updatedUser = await createUser(userToSave);
-    return updatedUser;
+    return userToModel(userUpdated);
 }
 
 /**
@@ -38,4 +41,24 @@ const createUser = async (user) => {
     console.log({newUser});
 
     return newUser;
+}
+
+/**
+ * 
+ * @param {Like<User>} user 
+ */
+const updateUser = async (user) => {
+    const url = `${ import.meta.env.VITE_BASE_URL }/users/${ user.id }`;
+    const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+
+    const updatedUser = await response.json();
+    console.log({updatedUser});
+
+    return updatedUser;
 }
